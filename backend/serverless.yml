@@ -6,6 +6,7 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-reqvalidator-plugin
   - serverless-aws-documentation
+  - serverless-plugin-tracing
 
 custom:
   webpack:
@@ -26,6 +27,10 @@ custom:
         schema: ${file(models/ToDoUpdate.json)}
 
 provider:
+  tracing:
+    lambda: true
+    apiGateway: true
+
   name: aws
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}

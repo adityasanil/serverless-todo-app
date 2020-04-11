@@ -6,14 +6,16 @@ import {
   APIGatewayProxyHandler
 } from 'aws-lambda'
 import { deleteToDo } from '../../bussinessLogic/ToDo'
-
+import { createLogger } from '../../utils/logger'
 import * as middy from 'middy'
 import { cors } from 'middy/middlewares'
+
+const logger = createLogger('deleteToDo')
 
 export const handler = middy(
   async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     // TODO: Remove a TODO item by id
-    console.log('Processing Event ', event)
+    logger.info('Processing Event ', event)
     const authorization = event.headers.Authorization
     const split = authorization.split(' ')
     const jwtToken = split[1]
